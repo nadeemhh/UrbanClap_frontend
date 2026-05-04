@@ -21,12 +21,12 @@ export default function ProviderLoginPage() {
           'Content-Type': 'application/json',
         },
         credentials: 'include',
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, role: 'provider' }),
       });
       const data = await res.json();
 
       if (res.ok) {
-        if (data.role === 'provider' || data.role === 'admin') {
+        if (data.role === 'provider') {
           localStorage.setItem('providerToken', data.accessToken);
           localStorage.setItem('providerUser', JSON.stringify(data));
           router.push('/provider');
