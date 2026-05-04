@@ -1,10 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import AdminSidebar from "../components/AdminSidebar";
 import AdminHeader from "../components/AdminHeader";
 
 export default function AdminLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const adminInfo = localStorage.getItem('adminInfo');
+    if (!adminInfo) {
+      router.push('/admin-login');
+    }
+  }, [router]);
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">

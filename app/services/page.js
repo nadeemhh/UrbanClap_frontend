@@ -58,7 +58,7 @@ export default function ServicesListingPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8">
 
         {/* Promotional Hero Banner */}
-        <div className="bg-bg-dark-section rounded-3xl overflow-hidden relative mb-8 h-[240px] flex items-center shadow-lg animate-scale-in">
+        <div className="bg-bg-dark-section rounded-3xl overflow-hidden relative mb-8 min-h-[200px] flex items-center shadow-lg animate-scale-in">
           <div className="absolute inset-0 w-full h-full">
             <Image
               src="https://images.unsplash.com/photo-1620023473722-e300185e78ec?q=80&w=2070&auto=format&fit=crop"
@@ -67,17 +67,17 @@ export default function ServicesListingPage() {
               className="object-cover opacity-30 mix-blend-overlay"
             />
           </div>
-          <div className="relative z-10 p-8 md:p-12 max-w-2xl text-white">
-            <div className="inline-block bg-primary text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
+          <div className="relative z-10 p-6 sm:p-8 md:p-12 max-w-2xl text-white">
+            <div className="inline-block bg-primary text-xs font-bold px-3 py-1 rounded-full mb-3 md:mb-4 uppercase tracking-wider">
               Limited Time Offer
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 leading-tight">
               Summer Cooling Fest: Flat 20% Off on AC Servicing
             </h1>
-            <p className="text-gray-300 mb-6 max-w-xl">
+            <p className="text-sm sm:text-base text-gray-300 mb-5 md:mb-6 max-w-xl">
               Expert technicians at your doorstep. Guaranteed cooling in 45 minutes or free service.
             </p>
-            <Link href="/book" className="bg-white text-text-main hover:bg-gray-100 font-bold py-3 px-6 rounded-lg transition shadow-md inline-block text-center">
+            <Link href="/book" className="bg-white text-text-main hover:bg-gray-100 font-bold py-2.5 md:py-3 px-5 md:px-6 rounded-lg transition shadow-md inline-block text-center text-sm md:text-base">
               Book Service Now
             </Link>
           </div>

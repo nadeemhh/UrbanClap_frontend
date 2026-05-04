@@ -1,9 +1,10 @@
 "use client";
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function ProviderSidebar({ isOpen, setIsOpen }) {
   const pathname = usePathname();
+  const router = useRouter();
 
   const navItems = [
     { name: 'Dashboard', href: '/provider', icon: 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z' },
@@ -12,6 +13,28 @@ export default function ProviderSidebar({ isOpen, setIsOpen }) {
     { name: 'Earnings', href: '/provider/earnings', icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
     { name: 'Profile', href: '/provider/profile', icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
   ];
+
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem('providerToken');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/logout`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        credentials: 'include'
+      });
+      if (res.ok) {
+        localStorage.removeItem('providerToken');
+        localStorage.removeItem('providerUser');
+        router.push('/provider-login');
+      } else {
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
 
   return (
     <>
@@ -56,10 +79,10 @@ export default function ProviderSidebar({ isOpen, setIsOpen }) {
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border">
-          <Link href="/" className="flex items-center gap-3 px-4 py-3 text-text-muted hover:bg-gray-100 hover:text-text-main rounded-xl transition">
+          <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 text-text-muted hover:bg-gray-100 hover:text-text-main rounded-xl transition">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
             <span className="font-medium">Logout</span>
-          </Link>
+          </button>
         </div>
       </aside>
     </>
